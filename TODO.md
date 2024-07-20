@@ -5,3 +5,8 @@
 ```
 on([one, two], 'collide', () => {});
 ```
+
+- `on`
+- `off`
+- `once`
+- `emit`
