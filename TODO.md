@@ -11,4 +11,4 @@ on([one, two], 'collide', () => {});
 - `once`
 - `emit`
 
-- `assign`
+- `add`
