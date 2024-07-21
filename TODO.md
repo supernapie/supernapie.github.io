@@ -31,15 +31,25 @@ Concepts for positioning and drawing elements
 
 ## Programming interface
 
+Display
 - `add`
 - `remove`
+
+Events
 - `on`
 - `off`
 - `once`
 - `emit`
 
+Event types
+- `resize`
+- `tap`
+- `draw`
+
 ```
-let one = add();
-let two = add();
-on([one, two], 'collide', e => {});
+let one = gg.add();
+let two = gg.add();
+gg.on([one, two], 'collide', e => {
+    gg.remove(two);
+});
 ```
