@@ -1,4 +1,4 @@
-import {emit} from './events.js';
+import {emit, once} from './events.js';
 
 let canvas = {width: 320, height: 320};
 
@@ -22,10 +22,8 @@ if (typeof document !== 'undefined') {
         emit('resize', {vw, vh, pxR});
     };
     document.body.appendChild(canvas);
-    window.addEventListener('resize', () => {
-        resize();
-    });
-    resize();
+    window.addEventListener('resize', resize);
+    once('ready', resize);
 }
 
 export {canvas};

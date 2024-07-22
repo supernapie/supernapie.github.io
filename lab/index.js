@@ -1,9 +1,11 @@
 // gg can be anything you want
 // use it for namespacing
 import gg from '../js/index.js';
-console.log('lab');
+
+// documentation
 console.log(gg);
-gg.on();
-gg.off();
-gg.once();
-gg.emit();
+
+gg.on('resize', (e, context) => {
+    console.log('resize', e, context);
+    console.log(gg.vw, gg.vh, gg.pxR);
+}, {test: 'test'});
