@@ -27,7 +27,8 @@ core
 
 Concepts for positioning and drawing elements
 
-- [ ] TODO
+- The canvas resizes with pixelratio
+- The game world coordinates map to the innerWidth/innerHeight size
 
 ## Programming interface
 
