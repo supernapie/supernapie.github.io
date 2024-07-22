@@ -43,14 +43,16 @@ Events
 - `emit`
 
 Event types
-- `resize`
-- `tap`
-- `draw`
+
+- [x] `ready`
+- [x] `resize`
+- [ ] `tap`
+- [ ] `draw`
 
 ```
 let one = gg.add();
 let two = gg.add();
-gg.on([one, two], 'collide', e => {
-    gg.remove(two);
-});
+gg.on('collide', (e, context) => {
+    gg.remove(context.two);
+}, {one, two});
 ```
