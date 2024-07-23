@@ -9,3 +9,8 @@ gg.on('resize', (e, context) => {
     console.log('resize', e, context);
     console.log(gg.vw, gg.vh, gg.pxR);
 }, {test: 'test'});
+
+gg.on('tap', (e, context) => {
+    console.log('tap', e, context);
+    console.log(gg.pointer);
+});
