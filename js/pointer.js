@@ -10,26 +10,19 @@ let pointer = {
     justUp: false,
     isDown: false
 };
-let viewportOffset;
-let left;
-let top;
 let mouseEntered = false;
-let x = 0;
-let y = 0;
 
 let setXY = e => {
-    viewportOffset = canvas.getBoundingClientRect();
-    left = viewportOffset.left;
-    top = viewportOffset.top;
-    x = (e.clientX - left);
-    y = (e.clientY - top);
-    pointer.x = x;
-    pointer.y = y;
+    let viewportOffset = canvas.getBoundingClientRect();
+    let left = viewportOffset.left;
+    let top = viewportOffset.top;
+    pointer.x = (e.clientX - left);
+    pointer.y = (e.clientY - top);
 };
 
 once('ready', () => {
 
-    if (typeof document === 'undefined') {
+    if (!canvas) {
         return;
     }
 
@@ -38,8 +31,8 @@ once('ready', () => {
             return;
         }
         setXY(e);
-        pointer.downX = x;
-        pointer.downY = y;
+        pointer.downX = pointer.x;
+        pointer.downY = pointer.y;
         pointer.justDown = true;
         pointer.isDown = true;
         mouseEntered = false;
@@ -63,7 +56,6 @@ once('ready', () => {
         setXY(e);
         pointer.justUp = true;
         pointer.isDown = false;
-        emit('tap', {x, y});
     });
 
     canvas.addEventListener('pointerout', e => {

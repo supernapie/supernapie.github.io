@@ -3,12 +3,7 @@
 import gg from '../js/index.js';
 
 // documentation
-//console.log(gg);
-
-let ctx;
-if (typeof gg.canvas.getContext === 'function') {
-    ctx = gg.canvas.getContext('2d');
-}
+console.log(gg);
 
 let fill = 'black';
 let stroke = 'white';
@@ -28,25 +23,22 @@ gg.on('update', () => {
         addCircle();
     }
     circles = circles.filter(circle => {
-        circle.lifespan -= gg.time.delta;
+        circle.lifespan -= gg.dt;
         return circle.lifespan > 0;
     });
 });
 
-gg.on('draw', () => {
-    if (!ctx) return;
-    ctx.save();
-    ctx.scale(gg.pxR, gg.pxR);
+gg.on('draw', ctx => {
+    ctx.scale(gg.vc, gg.vc);
 
     ctx.fillStyle = fill;
+    ctx.strokeStyle = stroke;
+
     ctx.fillRect(0, 0, gg.vw, gg.vh);
 
-    ctx.strokeStyle = stroke;
     circles.forEach(circle => {
         ctx.beginPath();
         ctx.arc(circle.x, circle.y, (circle.maxRadius - circle.lifespan) / 10, 0, Math.PI * 2);
         ctx.stroke();
     });
-
-    ctx.restore();
 });

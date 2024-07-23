@@ -1,32 +1,38 @@
 import { emit, once } from './events.js';
-import { canvas } from './canvas.js';
+import { canvas, ctx } from './canvas.js';
 
-let time = {
-    elapsed: 0,
-    delta: 17,
+let t = 0;
+let dt = 17;
+
+let update = () => {
+    let time = { t, dt };
+    emit('preupdate', time);
+    emit('update', time);
+    emit('postupdate', time);
 };
 
-let tick = t => {
-    emit('preupdate', t);
-    emit('update', t);
-    emit('postupdate', t);
-    emit('predraw', t);
-    emit('draw', t);
-    emit('postdraw', t);
+let draw = () => {
+    if (!ctx) {
+        return;
+    }
+    ctx.save();
+    emit('draw', ctx);
+    ctx.restore();
 };
 
 once('ready', () => {
-
     if (typeof document === 'undefined') {
         return;
     }
-    let onF = t => {
-        time.delta = t - time.elapsed;
-        time.elapsed = t;
-        tick(time);
+
+    let onF = time => {
+        dt = time - t;
+        t = time;
+        update();
+        draw();
         requestAnimationFrame(onF);
     };
     requestAnimationFrame(onF);
 });
 
-export { time };
+export { update };

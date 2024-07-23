@@ -1,22 +1,26 @@
 import { on, off, once, emit } from './events.js';
-import { canvas } from './canvas.js';
+import { ctx } from './canvas.js';
 import { pointer } from './pointer.js';
-import { time } from './time.js';
+import { update } from './time.js';
 
 let gg = {
     vw: 320,
     vh: 320,
-    pxR: 1,
+    vc: 1,
+    t: 0,
+    dt: 17,
     on,
     off,
     once,
     emit,
-    canvas,
     pointer,
-    time
 };
 
 on('resize', e => {
+    Object.assign(gg, e);
+});
+
+on('preupdate', e => {
     Object.assign(gg, e);
 });
 
