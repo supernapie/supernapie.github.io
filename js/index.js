@@ -1,6 +1,7 @@
 import { on, off, once, emit } from './events.js';
 import { canvas } from './canvas.js';
 import { pointer } from './pointer.js';
+import { time } from './time.js';
 
 let gg = {
     vw: 320,
@@ -11,7 +12,8 @@ let gg = {
     once,
     emit,
     canvas,
-    pointer
+    pointer,
+    time
 };
 
 on('resize', e => {

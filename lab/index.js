@@ -14,3 +14,7 @@ gg.on('tap', (e, context) => {
     console.log('tap', e, context);
     console.log(gg.pointer);
 });
+
+gg.on('update', (e, context) => {
+    console.log('update', e, context);
+});
