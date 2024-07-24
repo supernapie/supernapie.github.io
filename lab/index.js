@@ -29,7 +29,6 @@ gg.on('update', time => {
 });
 
 gg.on('draw', ctx => {
-    ctx.scale(gg.vc, gg.vc);
 
     ctx.fillStyle = fill;
     ctx.strokeStyle = stroke;

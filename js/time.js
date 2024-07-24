@@ -16,6 +16,10 @@ let draw = () => {
         return;
     }
     ctx.save();
+    ctx.scale(
+        window.devicePixelRatio,
+        window.devicePixelRatio
+    );
     emit('draw', ctx);
     ctx.restore();
 };
