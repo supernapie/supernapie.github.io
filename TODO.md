@@ -32,10 +32,6 @@ Concepts for positioning and drawing elements
 
 ## Programming interface
 
-Display
-- `add`
-- `remove`
-
 Events
 - `on`
 - `off`
@@ -46,10 +42,8 @@ Event types
 
 - [x] `ready`
 - [x] `resize`
-- [x] `tap`
-- [ ] `preupdate`
+- [ ] `tap`
 - [ ] `update`
-- [ ] `postupdate`
 - [ ] `draw`
 
 ```
