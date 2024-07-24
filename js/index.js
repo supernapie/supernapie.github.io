@@ -7,8 +7,6 @@ let gg = {
     vw: 320,
     vh: 320,
     vc: 1,
-    t: 0,
-    dt: 17,
     on,
     off,
     once,
@@ -17,10 +15,6 @@ let gg = {
 };
 
 on('resize', e => {
-    Object.assign(gg, e);
-});
-
-on('preupdate', e => {
     Object.assign(gg, e);
 });
 

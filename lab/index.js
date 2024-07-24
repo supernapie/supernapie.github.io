@@ -18,12 +18,12 @@ let addCircle = () => {
     });
 };
 
-gg.on('update', () => {
+gg.on('update', time => {
     if (gg.pointer.justUp) {
         addCircle();
     }
     circles = circles.filter(circle => {
-        circle.lifespan -= gg.dt;
+        circle.lifespan -= time.dt;
         return circle.lifespan > 0;
     });
 });
