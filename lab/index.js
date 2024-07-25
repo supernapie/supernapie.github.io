@@ -7,13 +7,10 @@ console.log(gg);
 
 let circles = [];
 let addCircle = () => {
-    let { vw, vh } = gg.last('resize');
-    let lifespan = Math.max(vw, vh) * 20;
     circles.push({
         x: gg.pointer.x,
         y: gg.pointer.y,
-        lifespan,
-        maxRadius: lifespan
+        r: 0
     });
 };
 
@@ -21,9 +18,13 @@ gg.on('update', time => {
     if (gg.pointer.justUp) {
         addCircle();
     }
+    let { vw, vh } = gg.last('resize');
     circles = circles.filter(circle => {
-        circle.lifespan -= time.dt;
-        return circle.lifespan > 0;
+        circle.r += time.dt / 1000 * 80; // 80 pixels per second
+        let dx = Math.max(circle.x, vw - circle.x);
+        let dy = Math.max(circle.y, vh - circle.y);
+        let maxRadius = Math.sqrt(dx * dx + dy * dy);
+        return circle.r < maxRadius;
     });
 });
 
@@ -36,8 +37,9 @@ gg.on('draw', ctx => {
     ctx.fillRect(0, 0, vw, vh);
 
     circles.forEach(circle => {
+        let { x, y, r } = circle;
         ctx.beginPath();
-        ctx.arc(circle.x, circle.y, (circle.maxRadius - circle.lifespan) / 10, 0, Math.PI * 2);
+        ctx.arc(x, y, r, 0, Math.PI * 2);
         ctx.stroke();
     });
 });
