@@ -32,7 +32,7 @@ gg.on('draw', ctx => {
     ctx.strokeStyle = 'white';
     ctx.fillStyle = 'black';
 
-    let {vw, vh} = gg.last('resize');
+    let { vw, vh } = gg.last('resize');
     ctx.fillRect(0, 0, vw, vh);
 
     circles.forEach(circle => {

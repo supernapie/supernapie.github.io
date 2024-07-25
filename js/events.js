@@ -27,7 +27,7 @@ export let off = (type, callback) => {
     }
 };
 
-export let once = (type, callback, context) => {
+export let once = (type, callback) => {
     let disposableCallback = e => {
         callback(e);
         off(type, disposableCallback);
@@ -44,15 +44,9 @@ export let emit = (type, e) => {
     }
 };
 
-export let last = (type, callback) => {
+export let last = (type) => {
     if (!lastEmission[type]) {
-        if (callback) {
-            once(type, callback);
-        }
         return {};
-    }
-    if (callback) {
-        callback(lastEmission[type]);
     }
     return lastEmission[type];
 };
