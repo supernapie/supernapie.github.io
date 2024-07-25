@@ -5,8 +5,6 @@ import gg from '../js/index.js';
 // documentation
 console.log(gg);
 
-let fill = 'black';
-let stroke = 'white';
 let circles = [];
 let addCircle = () => {
     let { vw, vh } = gg.last('resize');
