@@ -3,7 +3,7 @@ import { ctx } from './canvas.js';
 import { pointer } from './pointer.js';
 import { update } from './time.js';
 
-let gg = {
+let api = {
     vw: 320,
     vh: 320,
     vc: 1,
@@ -15,9 +15,9 @@ let gg = {
 };
 
 on('resize', e => {
-    Object.assign(gg, e);
+    Object.assign(api, e);
 });
 
 emit('ready');
 
-export default gg;
+export default api;
