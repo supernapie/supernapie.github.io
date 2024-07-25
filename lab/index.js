@@ -9,7 +9,8 @@ let fill = 'black';
 let stroke = 'white';
 let circles = [];
 let addCircle = () => {
-    let lifespan = Math.max(gg.vw, gg.vh) * 20;
+    let { vw, vh } = gg.last('resize');
+    let lifespan = Math.max(vw, vh) * 20;
     circles.push({
         x: gg.pointer.x,
         y: gg.pointer.y,
@@ -30,10 +31,11 @@ gg.on('update', time => {
 
 gg.on('draw', ctx => {
 
-    ctx.fillStyle = fill;
-    ctx.strokeStyle = stroke;
+    ctx.strokeStyle = 'white';
+    ctx.fillStyle = 'black';
 
-    ctx.fillRect(0, 0, gg.vw, gg.vh);
+    let {vw, vh} = gg.last('resize');
+    ctx.fillRect(0, 0, vw, vh);
 
     circles.forEach(circle => {
         ctx.beginPath();

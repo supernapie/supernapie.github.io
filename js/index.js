@@ -1,22 +1,16 @@
-import { on, off, once, emit } from './events.js';
+import { on, off, once, emit, last } from './events.js';
 import { ctx } from './canvas.js';
 import { pointer } from './pointer.js';
 import { update } from './time.js';
 
 let api = {
-    vw: 320,
-    vh: 320,
-    vc: 1,
     on,
     off,
     once,
     emit,
+    last,
     pointer,
 };
-
-on('resize', e => {
-    Object.assign(api, e);
-});
 
 emit('ready');
 

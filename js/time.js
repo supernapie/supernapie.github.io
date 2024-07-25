@@ -1,4 +1,4 @@
-import { emit, once } from './events.js';
+import { emit, once, last } from './events.js';
 import { canvas, ctx } from './canvas.js';
 
 let t = 0;
@@ -12,20 +12,17 @@ let update = () => {
 };
 
 let draw = () => {
-    if (!ctx) {
-        return;
-    }
     ctx.save();
-    ctx.scale(
-        window.devicePixelRatio,
-        window.devicePixelRatio
-    );
+    let { vc: scale = 1 } = last('resize');
+    ctx.scale(scale, scale);
+
     emit('draw', ctx);
+
     ctx.restore();
 };
 
 once('ready', () => {
-    if (typeof document === 'undefined') {
+    if (!canvas) {
         return;
     }
 

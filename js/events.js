@@ -1,42 +1,58 @@
 let listeners = {};
 
-export let on = (type, callback, context) => {
+export let on = (type, callback) => {
     if (!listeners[type]) {
         listeners[type] = [];
     }
-    listeners[type].push({ callback, context })
+    listeners[type].push(callback);
 };
 
-export let off = (type, callback, context) => {
-    if (!type) {
+export let off = (type, callback) => {
+    if (!type && !callback) {
         listeners = {};
         return;
     }
-    if (!listeners[type]) {
-        return;
-    }
-    if (!callback) {
+    if (type && !callback) {
         listeners[type] = [];
         return;
     }
-    if (!context) {
-        listeners[type] = listeners[type].filter(listener => listener.callback !== callback);
+    if (!type && callback) {
+        for (let t in listeners) {
+            listeners[t] = listeners[t].filter(listener => listener !== callback);
+        }
         return;
     }
-    listeners[type] = listeners[type].filter(listener => listener.callback !== callback || listener.context !== context);
+    if (listeners[type]) {
+        listeners[type] = listeners[type].filter(listener => listener !== callback);
+    }
 };
 
 export let once = (type, callback, context) => {
     let disposableCallback = e => {
-        callback(e, context);
-        off(type, disposableCallback, context);
+        callback(e);
+        off(type, disposableCallback);
     };
-    on(type, disposableCallback, context);
+    on(type, disposableCallback);
 };
 
+let lastEmission = {};
+
 export let emit = (type, e) => {
-    if (!listeners[type]) {
-        return;
+    lastEmission[type] = e;
+    if (listeners[type]) {
+        listeners[type].forEach(listener => listener(e));
     }
-    listeners[type].forEach(listener => listener.callback(e, listener.context));
+};
+
+export let last = (type, callback) => {
+    if (!lastEmission[type]) {
+        if (callback) {
+            once(type, callback);
+        }
+        return {};
+    }
+    if (callback) {
+        callback(lastEmission[type]);
+    }
+    return lastEmission[type];
 };

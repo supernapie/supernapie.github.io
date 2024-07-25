@@ -37,6 +37,7 @@ Events
 - `off`
 - `once`
 - `emit`
+- `last`
 
 Event types
 
@@ -45,11 +46,3 @@ Event types
 - [ ] `tap`
 - [ ] `update`
 - [ ] `draw`
-
-```
-let one = gg.add();
-let two = gg.add();
-gg.on('collide', (e, context) => {
-    gg.remove(context.two);
-}, {one, two});
-```

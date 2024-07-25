@@ -1,4 +1,4 @@
-import {emit, once} from './events.js';
+import {emit} from './events.js';
 
 let canvas = false;
 let ctx = false;
@@ -19,7 +19,7 @@ let addCanvas = () => {
     ctx = canvas.getContext('2d');
     document.body.appendChild(canvas);
     window.addEventListener('resize', resize);
-    once('ready', resize);
+    resize();
 };
 
 let addCss = async (fileName) => {
