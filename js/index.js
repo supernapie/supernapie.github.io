@@ -1,6 +1,6 @@
 import { on, off, once, emit, last } from './events.js';
 import { ctx } from './canvas.js';
-import { pointer } from './pointer.js';
+import { tap } from './tap.js';
 import { update } from './time.js';
 
 let api = {
@@ -9,9 +9,7 @@ let api = {
     once,
     emit,
     last,
-    pointer,
+    tap
 };
-
-emit('ready');
 
 export default api;

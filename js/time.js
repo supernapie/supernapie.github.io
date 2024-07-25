@@ -1,4 +1,4 @@
-import { emit, once, last } from './events.js';
+import { emit, last } from './events.js';
 import { canvas, ctx } from './canvas.js';
 
 let t = 0;
@@ -6,9 +6,7 @@ let dt = 17;
 
 let update = () => {
     let time = { t, dt };
-    emit('preupdate', time);
     emit('update', time);
-    emit('postupdate', time);
 };
 
 let draw = () => {
@@ -21,11 +19,7 @@ let draw = () => {
     ctx.restore();
 };
 
-once('ready', () => {
-    if (!canvas) {
-        return;
-    }
-
+if (canvas) {
     let onF = time => {
         dt = time - t;
         t = time;
@@ -34,6 +28,6 @@ once('ready', () => {
         requestAnimationFrame(onF);
     };
     requestAnimationFrame(onF);
-});
+}
 
 export { update };

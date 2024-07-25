@@ -41,8 +41,7 @@ Events
 
 Event types
 
-- [x] `ready`
 - [x] `resize`
-- [ ] `tap`
-- [ ] `update`
-- [ ] `draw`
+- [x] `tap`
+- [x] `update`
+- [x] `draw`
