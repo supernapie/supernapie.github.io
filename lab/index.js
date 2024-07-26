@@ -1,6 +1,6 @@
 // gg can be anything you want
 // use it for namespacing
-import gg from '../js/index.js';
+import gg from '../js/canvas.js';
 
 // documentation
 console.log(gg);

@@ -1,25 +1,17 @@
-import {emit, on} from './events.js';
+import {on, off, once, emit, last} from './events.js';
+import update from './update.js';
+import draw from './draw.js';
+import tap from './tap.js';
+import color from './color.js';
+import resize from './resize.js';
 
 let canvas = false;
 let ctx = false;
-
-let resize = () => {
-    let vw = window.innerWidth;
-    let vh = window.innerHeight;
-    let vc = window.devicePixelRatio;
-    canvas.width = vw * vc;
-    canvas.height = vh * vc;
-    canvas.style.width = vw + 'px';
-    canvas.style.height = vh + 'px';
-    emit('resize', {vw, vh, vc});
-};
 
 let addCanvas = () => {
     canvas = document.createElement('canvas');
     ctx = canvas.getContext('2d');
     document.body.appendChild(canvas);
-    window.addEventListener('resize', resize);
-    resize();
 };
 
 let addCss = async (fileName) => {
@@ -34,10 +26,27 @@ if (typeof document !== 'undefined') {
     addCss('canvas.css');
     addCanvas();
     on('color', e => {
-        let { fill, stroke } = e;
+        let {fill, stroke} = e;
         ctx.fillStyle = fill;
         ctx.strokeStyle = stroke;
     });
+    color();
+    window.addEventListener('pointerup', tap);
+    on('resize', e => {
+        let {vw, vh, vc} = e;
+        canvas.width = vw * vc;
+        canvas.height = vh * vc;
+        canvas.style.width = vw + 'px';
+        canvas.style.height = vh + 'px';
+    });
+    window.addEventListener('resize', resize);
+    resize();
+    let onF = time => {
+        update(time);
+        draw(ctx);
+        requestAnimationFrame(onF);
+    };
+    requestAnimationFrame(onF);
 }
 
-export {ctx, canvas};
+export default {canvas, on, off, once, emit, last};

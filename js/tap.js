@@ -1,7 +1,8 @@
 import { emit } from './events.js';
 
-let tap = e => emit('tap', e);
+let tap = e => {
+    let { clientX: x, clientY: y } = e;
+    emit('tap', { x, y });
+};
 
-window.addEventListener('pointerup', e => tap({ x: e.clientX, y: e.clientY }));
-
-export { tap };
+export default tap;
