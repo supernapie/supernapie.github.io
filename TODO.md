@@ -41,8 +41,8 @@ Events
 
 Event types
 
-- [x] `resize`
-- [x] `tap`
-- [x] `update`
-- [x] `draw`
-- [x] `color`
+- `resize` `{ vw, vh, vc }`
+- `tap` `{ x, y }`
+- `update` `{ t, dt }`
+- `draw` `{ ctx }`
+- `color` `{ bg, fill, stroke }`
