@@ -10,13 +10,30 @@ let update = () => {
 };
 
 let draw = () => {
+    ctx.restore();
     ctx.save();
-    let { vc: scale = 1 } = last('resize');
+
+    let {
+        vw = 320,
+        vh = 320,
+        vc: scale = 1
+    } = last('resize');
+
     ctx.scale(scale, scale);
 
-    emit('draw', ctx);
+    let {
+        bg = 'black',
+        fill = 'white',
+        stroke = 'white'
+    } = last('color');
 
-    ctx.restore();
+    ctx.fillStyle = fill;
+    ctx.strokeStyle = stroke;
+
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, vw, vh);
+
+    emit('draw', {ctx});
 };
 
 if (canvas) {

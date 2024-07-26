@@ -45,3 +45,4 @@ Event types
 - [x] `tap`
 - [x] `update`
 - [x] `draw`
+- [x] `color`

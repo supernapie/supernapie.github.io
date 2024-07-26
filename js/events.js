@@ -37,8 +37,12 @@ export let once = (type, callback) => {
 
 let lastEmission = {};
 
-export let emit = (type, e) => {
-    lastEmission[type] = e;
+export let emit = (type, e = {}) => {
+    if (lastEmission[type]) {
+        Object.assign(lastEmission[type], e);
+    } else {
+        lastEmission[type] = e;
+    }
     if (listeners[type]) {
         listeners[type].forEach(listener => listener(e));
     }

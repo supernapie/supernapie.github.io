@@ -1,4 +1,4 @@
-import {emit} from './events.js';
+import {emit, on} from './events.js';
 
 let canvas = false;
 let ctx = false;
@@ -33,6 +33,11 @@ let addCss = async (fileName) => {
 if (typeof document !== 'undefined') {
     addCss('canvas.css');
     addCanvas();
+    on('color', e => {
+        let { fill, stroke } = e;
+        ctx.fillStyle = fill;
+        ctx.strokeStyle = stroke;
+    });
 }
 
 export {ctx, canvas};
