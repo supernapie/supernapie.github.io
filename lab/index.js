@@ -33,7 +33,7 @@ gg.on('update', e => {
 
     if (circles.length === 0) {
         let { x = vw / 2, y = vh / 2 } = gg.last('tap');
-        gg.tap({ x, y });
+        gg.emit('tap', { x, y });
     }
 });
 
