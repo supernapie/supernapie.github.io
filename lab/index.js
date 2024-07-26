@@ -5,8 +5,7 @@ import gg from '../js/index.js';
 // documentation
 console.log(gg);
 
-gg.emit('color', { stroke: 'black' });
-gg.emit('color', { bg: 'white' });
+gg.emit('color', { bg: 'black' });
 
 let circles = [];
 
