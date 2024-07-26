@@ -8,8 +8,7 @@ let api = {
     off,
     once,
     emit,
-    last,
-    tap
+    last
 };
 
 export default api;
