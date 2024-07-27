@@ -2,7 +2,8 @@
 
 ## Goals
 
-- Easy for making game prototypes in a few declarative lines
+- Focus on prototyping game mechanics
+- Scalable to full games with a lot of content
 - No buildtools, no dependencies
 - Run in the browser or in deno
 - Geared towards mobile games
@@ -13,8 +14,6 @@
 - Don't waste lines on game configuration (canvas resize, pointer input, animationloop work out of the box)
 - Don't waste time with designing screens and menus (plug and play components)
 - Lazy load physics, isometrics, pathfinding, vector math, 3d math, tweens, tilemaps, particles, when needed.
-- Focus on prototyping game mechanics
-- Scalable to full games with a lot of content
 - Use svg graphics and sprites
 
 ## Requirements
