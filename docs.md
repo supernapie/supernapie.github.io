@@ -2,14 +2,15 @@
 
 ## Programming interface
 
-Events
-- `on`
-- `off`
-- `once`
-- `emit`
-- `last`
+Event methods
 
-Event types
+- `on = (type, e => {}) => {}`
+- `off = (type, e => {}) => {}`
+- `once = (type, e => {}) => {}`
+- `emit = (type, e) => {}`
+- `last = (type) => e`
+
+Event types and e objects
 
 - `update` `{ t, dt }`
 - `draw` `{ ctx }`
