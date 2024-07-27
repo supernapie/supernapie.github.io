@@ -1,9 +1,11 @@
-import {on, off, once, emit, last} from './events.js';
-import update from './update.js';
-import draw from './draw.js';
-import tap from './tap.js';
+import events from '../events.js';
 import color from './color.js';
+import draw from './draw.js';
 import resize from './resize.js';
+import tap from './tap.js';
+import update from './update.js';
+
+let {on, off, once, emit, last} = events();
 
 let canvas = false;
 let ctx = false;
@@ -12,6 +14,15 @@ let addCanvas = () => {
     canvas = document.createElement('canvas');
     ctx = canvas.getContext('2d');
     document.body.appendChild(canvas);
+};
+
+let setCanvasSize = () => {
+    let {vw, vh, vc} = resize();
+    canvas.width = vw * vc;
+    canvas.height = vh * vc;
+    canvas.style.width = vw + 'px';
+    canvas.style.height = vh + 'px';
+    emit('resize', {vw, vh, vc});
 };
 
 let addCss = async (fileName) => {
@@ -23,27 +34,25 @@ let addCss = async (fileName) => {
 };
 
 if (typeof document !== 'undefined') {
-    addCss('canvas.css');
+    addCss('style.css');
     addCanvas();
     on('color', e => {
         let {fill, stroke} = e;
         ctx.fillStyle = fill;
         ctx.strokeStyle = stroke;
     });
-    color();
-    window.addEventListener('pointerup', tap);
-    on('resize', e => {
-        let {vw, vh, vc} = e;
-        canvas.width = vw * vc;
-        canvas.height = vh * vc;
-        canvas.style.width = vw + 'px';
-        canvas.style.height = vh + 'px';
+    emit('color', color());
+    window.addEventListener('pointerup', e => {
+        let {x, y} = tap(e);
+        emit('tap', {x, y});
     });
-    window.addEventListener('resize', resize);
-    resize();
+    window.addEventListener('resize', setCanvasSize);
+    setCanvasSize();
     let onF = time => {
-        update(time);
-        draw(ctx);
+        let {t, dt} = update(time);
+        emit('update', {t, dt});
+        draw(ctx, last('resize'), last('color'));
+        emit('draw', {ctx});
         requestAnimationFrame(onF);
     };
     requestAnimationFrame(onF);
