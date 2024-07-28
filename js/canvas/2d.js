@@ -1,29 +1,9 @@
 import events from '../events.js';
-import color from './color.js';
-import draw from './draw.js';
-import resize from './resize.js';
-import tap from './tap.js';
-import update from './update.js';
 
 let {on, off, once, emit, last} = events();
 
 let canvas = false;
 let ctx = false;
-
-let addCanvas = () => {
-    canvas = document.createElement('canvas');
-    ctx = canvas.getContext('2d');
-    document.body.appendChild(canvas);
-};
-
-let setCanvasSize = () => {
-    let {vw, vh, vc} = resize();
-    canvas.width = vw * vc;
-    canvas.height = vh * vc;
-    canvas.style.width = vw + 'px';
-    canvas.style.height = vh + 'px';
-    emit('resize', {vw, vh, vc});
-};
 
 let addCss = async (fileName) => {
     let res = await fetch(new URL(fileName, import.meta.url));
@@ -33,26 +13,85 @@ let addCss = async (fileName) => {
     document.head.appendChild(style);
 };
 
-if (typeof document !== 'undefined') {
-    addCss('style.css');
-    addCanvas();
+let addCanvas = () => {
+    canvas = document.createElement('canvas');
+    ctx = canvas.getContext('2d');
+    document.body.appendChild(canvas);
+};
+
+let resize = () => {
+    let vw = window.innerWidth;
+    let vh = window.innerHeight;
+    let vc = window.devicePixelRatio;
+    canvas.width = vw * vc;
+    canvas.height = vh * vc;
+    canvas.style.width = vw + 'px';
+    canvas.style.height = vh + 'px';
+    emit('resize', {vw, vh, vc});
+};
+
+let tap = e => {
+    let { clientX: x, clientY: y } = e;
+    emit('tap', {x, y});
+    return { x, y };
+};
+
+let color = () => {
     on('color', e => {
         let {fill, stroke} = e;
         ctx.fillStyle = fill;
         ctx.strokeStyle = stroke;
     });
-    emit('color', color());
-    window.addEventListener('pointerup', e => {
-        let {x, y} = tap(e);
-        emit('tap', {x, y});
-    });
-    window.addEventListener('resize', setCanvasSize);
-    setCanvasSize();
+    emit('color', { bg: 'black', fill: 'white', stroke: 'white' });
+};
+
+let t = 0;
+let dt = 17;
+let tick = (time) => {
+    dt = time - t;
+    t = time;
+    emit('tick', {t, dt});
+};
+
+let draw = (ctx) => {
+    ctx.restore();
+    ctx.save();
+
+    let {
+        vw = 320,
+        vh = 320,
+        vc: scale = 1
+    } = last('resize');
+
+    ctx.scale(scale, scale);
+
+    let {
+        bg = 'black',
+        fill = 'white',
+        stroke = 'white'
+    } = last('color');
+
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, vw, vh);
+
+    ctx.fillStyle = fill;
+    ctx.strokeStyle = stroke;
+
+    emit('draw', {ctx});
+};
+
+if (typeof document !== 'undefined') {
+    addCss('style.css');
+    addCanvas();
+    window.addEventListener('resize', resize);
+    resize();
+    color();
+
+    window.addEventListener('pointerup', tap);
+
     let onF = time => {
-        let {t, dt} = update(time);
-        emit('update', {t, dt});
-        draw(ctx, last('resize'), last('color'));
-        emit('draw', {ctx});
+        tick(time);
+        draw(ctx);
         requestAnimationFrame(onF);
     };
     requestAnimationFrame(onF);
