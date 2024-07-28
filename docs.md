@@ -12,7 +12,7 @@ Event methods
 
 Event types and e objects
 
-- `update` `{ t, dt }`
+- `tick` `{ t, dt }`
 - `draw` `{ ctx }`
 - `tap` `{ x, y }`
 - `color` `{ bg, fill, stroke }`
