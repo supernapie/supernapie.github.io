@@ -8,7 +8,6 @@ let circles = [];
 gg.on('tap', e => {
     let { x, y } = e;
     let r = 0;
-    let si = circles.length % 3;
     circles.push({ x, y, r });
 });
 
