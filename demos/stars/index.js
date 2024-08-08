@@ -1,4 +1,4 @@
-import gg from '../js/canvas/2d.js';
+import gg from '../../js/canvas/2d.js';
 
 gg.emit('color', {
     bg: '#162832',

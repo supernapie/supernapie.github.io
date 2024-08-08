@@ -1,5 +1,5 @@
-import gg from '../js/canvas/2d.js';
-import ft from '../js/text/filltext.js';
+import gg from '../../js/canvas/2d.js';
+import ft from '../../js/text/filltext.js';
 
 ft({text: 'Tap to create circles'});
 
