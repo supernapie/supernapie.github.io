@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'opensans';
+    src: url('opensans.woff');
+}
+
+* {
+    font-family: 'opensans', sans-serif;
+}

@@ -1,17 +1,10 @@
+import addCss from '../css.js';
 import events from '../events.js';
 
 let {on, off, once, emit, last} = events();
 
 let canvas = false;
 let ctx = false;
-
-let addCss = async (fileName) => {
-    let res = await fetch(new URL(fileName, import.meta.url));
-    let text = await res.text();
-    let style = document.createElement('style');
-    style.innerHTML = text;
-    document.head.appendChild(style);
-};
 
 let addCanvas = () => {
     canvas = document.createElement('canvas');
@@ -81,7 +74,7 @@ let draw = (ctx) => {
 };
 
 if (typeof document !== 'undefined') {
-    addCss('style.css');
+    addCss(new URL('style.css', import.meta.url));
     addCanvas();
     window.addEventListener('resize', resize);
     resize();

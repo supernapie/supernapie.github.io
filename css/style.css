@@ -1,10 +1,1 @@
-body {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-.px1 {
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
+@import url("../js/text/style.css");
