@@ -1,6 +1,7 @@
 // gg can be anything you want
 // use it for namespacing
 import gg from '../js/canvas/2d.js';
+import ft from '../js/text/filltext.js';
 
 // documentation
 console.log(gg);
@@ -15,6 +16,8 @@ gg.on('tap', e => {
     let si = circles.length % 3;
     let stroke = ['red', 'green', 'blue'][si];
     circles.push({ x, y, r, stroke });
+    // change text color to match
+    gg.emit('color', { fill: stroke });
 });
 
 gg.on('tick', e => {
@@ -45,4 +48,16 @@ gg.on('draw', e => {
         gg.emit('color', { stroke });
         ctx.stroke();
     });
+});
+
+let instructions = ft({text: 'Tap to create circles'});
+instructions.x = gg.last('resize').vw;
+gg.on('tick', e => {
+    let { dt } = e; // dt = delta time in milliseconds
+    let vx = dt / 1000 * 60; // 60 pixels per second
+    let { vw, vh } = gg.last('resize');
+    instructions.x -= vx;
+    if (instructions.x < -instructions.w) {
+        instructions.x = vw;
+    }
 });

@@ -1,6 +1,7 @@
 import gg from '../js/canvas/2d.js';
+import ft from '../js/text/filltext.js';
 
-gg.emit('color', { bg: 'black' });
+ft({text: 'Tap to create circles'});
 
 let circles = [];
 
@@ -8,8 +9,7 @@ gg.on('tap', e => {
     let { x, y } = e;
     let r = 0;
     let si = circles.length % 3;
-    let stroke = ['red', 'green', 'blue'][si];
-    circles.push({ x, y, r, stroke });
+    circles.push({ x, y, r });
 });
 
 gg.on('tick', e => {
@@ -34,10 +34,9 @@ gg.on('tick', e => {
 gg.on('draw', e => {
     let { ctx } = e;
     circles.forEach(circle => {
-        let { x, y, r, stroke } = circle;
+        let { x, y, r } = circle;
         ctx.beginPath();
         ctx.arc(x, y, r, 0, Math.PI * 2);
-        gg.emit('color', { stroke });
         ctx.stroke();
     });
 });
