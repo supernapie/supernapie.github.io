@@ -15,7 +15,7 @@ export default (options) => {
     };
     Object.assign(defaults, options);
     Object.assign(options, defaults);
-    let draw = e => {
+    options.draw = e => {
         let { ctx } = e;
         let { text, x, y, font, fill } = options;
         ctx.font = font;
@@ -25,14 +25,5 @@ export default (options) => {
         ctx.fillText(text, x, y);
         options.w = ctx.measureText(text).width;
     };
-    let newDraw = draw;
-    if (options.draw) {
-        let oldDraw = options.draw;
-        newDraw = e => {
-            oldDraw(e);
-            draw(e);
-        };
-    }
-    options.draw = newDraw;
     return options;
 };
