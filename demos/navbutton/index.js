@@ -16,7 +16,7 @@ gg.on('resize', (e) => {
 gg.emit('resize', gg.last('resize'));
 
 gg.on('step', (e) => {
-    navbutton.a = e.t * 0.1;
+    navbutton.a = e.t * 0.1 % 360;
 });
 
 gg.on('draw', (e) => {
