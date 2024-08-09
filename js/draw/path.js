@@ -44,15 +44,13 @@ export default (options = {}) => {
         return options;
     }
     svg(options.url).then((svgtext) => {
-        if (document) {
-            let el = document.createElement('div');
-            el.innerHTML = svgtext;
-            el.querySelectorAll('path').forEach((path) => {
-                options.paths.push(path.getAttribute('d'));
-            });
-            ow = Number(el.querySelector('svg').getAttribute('width').replace('px', '')) || 512;
-            oh = Number(el.querySelector('svg').getAttribute('height').replace('px', '')) || 512;
-        }
+        let el = document.createElement('div');
+        el.innerHTML = svgtext;
+        el.querySelectorAll('path').forEach((path) => {
+            options.paths.push(path.getAttribute('d'));
+        });
+        ow = Number(el.querySelector('svg').getAttribute('width').replace('px', '')) || 512;
+        oh = Number(el.querySelector('svg').getAttribute('height').replace('px', '')) || 512;
     });
     return options;
 };
