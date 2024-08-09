@@ -3,12 +3,20 @@ import path from '../../js/draw/path.js';
 
 let navbutton = path({
     url: new URL('../../img/nav.svg', import.meta.url),
-    w: 48,
-    h: 48
+    paths: ['M 0 0 L 1024 0 L 1024 1024 L 0 1024 Z'],
+    w: 100,
+    h: 100
 });
 
+gg.on('resize', (e) => {
+    let { vw, vh } = e;
+    navbutton.x = vw / 2;
+    navbutton.y = vh / 2;
+});
+gg.emit('resize', gg.last('resize'));
+
 gg.on('step', (e) => {
-    //navbutton.a = e.t * 0.1;
+    navbutton.a = e.t * 0.1;
 });
 
 gg.on('draw', (e) => {

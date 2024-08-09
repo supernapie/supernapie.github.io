@@ -20,16 +20,21 @@ export default (options = {}) => {
         let rad = a * Math.PI / 180;
         let cx = w / ow;
         let cy = h / oh;
+        // transform matrix
         let m = new DOMMatrix([
             Math.cos(rad) * cx,
             Math.sin(rad) * cx,
             -Math.sin(rad) * cy,
             Math.cos(rad) * cy,
             x, y
-        ]);    
+        ]);
+        // normalize matrix, puts the origin in the center
+        let n = new DOMMatrix([1, 0, 0, 1, -ow / 2, -oh / 2]);
         let p = new Path2D();
-        paths.forEach((path) => {
-            p.addPath(new Path2D(path), m);
+        paths.forEach((path, i) => {
+            let np = new Path2D();
+            np.addPath(new Path2D(path), n);
+            p.addPath(np, m);
         });
         ctx.fill(p);
     };
