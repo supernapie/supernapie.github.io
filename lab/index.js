@@ -1,7 +1,7 @@
 // gg can be anything you want
 // use it for namespacing
 import gg from '../js/canvas/2d.js';
-import ft from '../js/text/filltext.js';
+import ft from '../js/draw/text.js';
 
 // documentation
 console.log(gg);

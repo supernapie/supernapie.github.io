@@ -1,21 +1,21 @@
 import gg from '../../js/canvas/2d.js';
-import ft from '../../js/text/filltext.js';
+import ft from '../../js/draw/text.js';
 
 let label = ft({text: 'Tap to create circles'});
 let circles = [];
 
-gg.on('tap', e => {
+gg.on('tap', (e) => {
     let { x, y } = e;
     let r = 0;
     circles.push({ x, y, r });
 });
 
-gg.on('step', e => {
+gg.on('step', (e) => {
     let { dt } = e; // dt = delta time in milliseconds
     let grow = dt / 1000 * 80; // 80 pixels per second
     let { vw, vh } = gg.last('resize');
 
-    circles = circles.filter(circle => {
+    circles = circles.filter((circle) => {
         circle.r += grow;
         let dx = Math.max(circle.x, vw - circle.x);
         let dy = Math.max(circle.y, vh - circle.y);
@@ -29,7 +29,7 @@ gg.on('step', e => {
     }
 });
 
-gg.on('draw', e => {
+gg.on('draw', (e) => {
     let { ctx } = e;
     label.draw(e);
     circles.forEach(circle => {

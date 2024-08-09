@@ -1,4 +1,7 @@
 export default (url) => {
+    if (!document) {
+        return;
+    }
     if (document.querySelector(`link[href="${url}"]`)) {
         return;
     }

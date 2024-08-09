@@ -1,6 +1,7 @@
 import css from '../css.js';
-import events from '../events.js';
+css(new URL('../../css/canvas.css', import.meta.url));
 
+import events from '../events.js';
 let {on, off, once, emit, last} = events();
 
 let canvas = false;
@@ -55,7 +56,6 @@ let clear = e => {
 };
 
 if (typeof document !== 'undefined') {
-    css(new URL('style.css', import.meta.url));
     addCanvas();
 
     on('resize', resize);
@@ -70,7 +70,6 @@ if (typeof document !== 'undefined') {
         vh: window.innerHeight,
         vc: window.devicePixelRatio || 1
     });
-
     window.addEventListener('pointerup', e => {
         let { clientX: x, clientY: y } = e;
         emit('tap', {x, y});

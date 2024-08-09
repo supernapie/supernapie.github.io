@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'opensans';
-    src: url('opensans.woff');
+    src: url('../fonts/opensans.woff');
 }
 
 body {
