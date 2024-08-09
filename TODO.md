@@ -3,7 +3,10 @@
 - [x] Canvas resize
 - [x] Pointer input
 - [x] Animation loop
-- [x] filltext
+- [x] Text
+- [x] SVG paths
+- [ ] Tap areas
+- [ ] Hover areas
 - [ ] SVG sprites
 - [ ] Cameras
 - [ ] States
