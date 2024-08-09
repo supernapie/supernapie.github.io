@@ -2,6 +2,8 @@
 
 ## Programming interface
 
+`js/events.js`
+
 Event methods
 
 - `on = (type, e => {}) => {}`
@@ -10,9 +12,11 @@ Event methods
 - `emit = (type, e) => {}`
 - `last = (type) => e`
 
+`js/canvas/2d.js`
+
 Event types and e objects
 
-- `tick` `{ t, dt }`
+- `step` `{ t, dt }`
 - `draw` `{ ctx }`
 - `tap` `{ x, y }`
 - `color` `{ bg, fill, stroke }`

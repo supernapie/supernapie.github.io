@@ -3,6 +3,7 @@
 - [x] Canvas resize
 - [x] Pointer input
 - [x] Animation loop
+- [x] filltext
 - [ ] SVG sprites
 - [ ] Screens
 - [ ] Menus

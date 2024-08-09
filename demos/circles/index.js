@@ -11,7 +11,7 @@ gg.on('tap', e => {
     circles.push({ x, y, r });
 });
 
-gg.on('tick', e => {
+gg.on('step', e => {
     let { dt } = e; // dt = delta time in milliseconds
     let grow = dt / 1000 * 80; // 80 pixels per second
     let { vw, vh } = gg.last('resize');

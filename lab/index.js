@@ -20,7 +20,7 @@ gg.on('tap', e => {
     gg.emit('color', { fill: stroke });
 });
 
-gg.on('tick', e => {
+gg.on('step', e => {
     let { dt } = e; // dt = delta time in milliseconds
     let grow = dt / 1000 * 80; // 80 pixels per second
     let { vw, vh } = gg.last('resize');
@@ -52,7 +52,7 @@ gg.on('draw', e => {
 
 let instructions = ft({text: 'Tap to create circles'});
 instructions.x = gg.last('resize').vw;
-gg.on('tick', e => {
+gg.on('step', e => {
     let { dt } = e; // dt = delta time in milliseconds
     let vx = dt / 1000 * 60; // 60 pixels per second
     let { vw, vh } = gg.last('resize');

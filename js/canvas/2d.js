@@ -40,10 +40,10 @@ let color = () => {
 
 let t = 0;
 let dt = 17;
-let tick = (time) => {
+let step = (time) => {
     dt = time - t;
     t = time;
-    emit('tick', {t, dt});
+    emit('step', {t, dt});
 };
 
 let draw = (ctx) => {
@@ -83,7 +83,7 @@ if (typeof document !== 'undefined') {
     window.addEventListener('pointerup', tap);
 
     let onF = time => {
-        tick(time);
+        step(time);
         draw(ctx);
         requestAnimationFrame(onF);
     };
