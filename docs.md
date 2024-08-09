@@ -17,6 +17,7 @@ Event methods
 Event types and e objects
 
 - `step` `{ t, dt }`
+- `clear` `{ ctx }`
 - `draw` `{ ctx }`
 - `tap` `{ x, y }`
 - `color` `{ bg, fill, stroke }`
