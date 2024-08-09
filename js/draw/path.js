@@ -3,7 +3,9 @@ import svg from '../svg.js';
 export default (options = {}) => {
     let defaults = {
         url: false,
-        paths: []
+        paths: [],
+        w: 0,
+        h: 0
     };
     Object.assign(defaults, options);
     Object.assign(options, defaults);
@@ -26,6 +28,8 @@ export default (options = {}) => {
             el.querySelectorAll('path').forEach((path) => {
                 options.paths.push(path.getAttribute('d'));
             });
+            options.w = Number(el.querySelector('svg').getAttribute('width').replace('px', '')) || 0;
+            options.h = Number(el.querySelector('svg').getAttribute('height').replace('px', '')) || 0;
         }
     });
     return options;
