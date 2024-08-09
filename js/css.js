@@ -1,9 +1,9 @@
-let addCss = async (url) => {
-    let res = await fetch(url);
-    let text = await res.text();
-    let style = document.createElement('style');
-    style.innerHTML = text;
-    document.head.appendChild(style);
+export default (url) => {
+    if (document.querySelector(`link[href="${url}"]`)) {
+        return;
+    }
+    let link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = url;
+    document.head.appendChild(link);
 };
-
-export default addCss;

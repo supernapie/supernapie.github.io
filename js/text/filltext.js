@@ -5,7 +5,7 @@ if (typeof document !== 'undefined') {
     addCss(new URL('style.css', import.meta.url));
 }
 
-export default function fillText(options) {
+export default (options) => {
     let defaults = {
         text: '',
         x: 10,

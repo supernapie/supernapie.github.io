@@ -3,6 +3,6 @@
     src: url('opensans.woff');
 }
 
-* {
+body {
     font-family: 'opensans', sans-serif;
 }
