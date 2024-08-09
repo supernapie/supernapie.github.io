@@ -1,5 +1,4 @@
 import css from '../css.js';
-import gg from '../canvas/2d.js';
 
 if (typeof document !== 'undefined') {
     css(new URL('style.css', import.meta.url));
@@ -16,7 +15,7 @@ export default (options) => {
     };
     Object.assign(defaults, options);
     Object.assign(options, defaults);
-    gg.on('draw', e => {
+    let draw = e => {
         let { ctx } = e;
         let { text, x, y, font, fill } = options;
         ctx.font = font;
@@ -25,6 +24,15 @@ export default (options) => {
         }
         ctx.fillText(text, x, y);
         options.w = ctx.measureText(text).width;
-    });
+    };
+    let newDraw = draw;
+    if (options.draw) {
+        let oldDraw = options.draw;
+        newDraw = e => {
+            oldDraw(e);
+            draw(e);
+        };
+    }
+    options.draw = newDraw;
     return options;
 };

@@ -1,8 +1,7 @@
 import gg from '../../js/canvas/2d.js';
 import ft from '../../js/text/filltext.js';
 
-ft({text: 'Tap to create circles'});
-
+let label = ft({text: 'Tap to create circles'});
 let circles = [];
 
 gg.on('tap', e => {
@@ -32,6 +31,7 @@ gg.on('step', e => {
 
 gg.on('draw', e => {
     let { ctx } = e;
+    label.draw(e);
     circles.forEach(circle => {
         let { x, y, r } = circle;
         ctx.beginPath();

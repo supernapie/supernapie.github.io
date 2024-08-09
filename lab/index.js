@@ -8,6 +8,18 @@ console.log(gg);
 
 gg.emit('color', { bg: 'black' });
 
+let instructions = ft({text: 'Tap to create circles'});
+instructions.x = gg.last('resize').vw;
+gg.on('step', e => {
+    let { dt } = e; // dt = delta time in milliseconds
+    let vx = dt / 1000 * 60; // 60 pixels per second
+    let { vw, vh } = gg.last('resize');
+    instructions.x -= vx;
+    if (instructions.x < -instructions.w) {
+        instructions.x = vw;
+    }
+});
+
 let circles = [];
 
 gg.on('tap', e => {
@@ -42,6 +54,7 @@ gg.on('step', e => {
 
 gg.on('draw', e => {
     let { ctx } = e;
+    instructions.draw(e);
     circles.forEach(circle => {
         let { x, y, r, stroke } = circle;
         ctx.beginPath();
@@ -49,16 +62,4 @@ gg.on('draw', e => {
         gg.emit('color', { stroke });
         ctx.stroke();
     });
-});
-
-let instructions = ft({text: 'Tap to create circles'});
-instructions.x = gg.last('resize').vw;
-gg.on('step', e => {
-    let { dt } = e; // dt = delta time in milliseconds
-    let vx = dt / 1000 * 60; // 60 pixels per second
-    let { vw, vh } = gg.last('resize');
-    instructions.x -= vx;
-    if (instructions.x < -instructions.w) {
-        instructions.x = vw;
-    }
 });
