@@ -1,5 +1,10 @@
 import gg from '../../js/canvas/2d.js';
+import ft from '../../js/draw/text.js';
 import path from '../../js/draw/path.js';
+
+gg.emit('color', { bg: 'navy', fill: 'white' });
+
+gg.on('draw', ft({text: 'WIP: /js/draw/path.js'}).draw);
 
 let navbutton = path({
     url: new URL('../../img/nav.svg', import.meta.url),
@@ -21,6 +26,5 @@ gg.on('step', (e) => {
 
 gg.on('draw', (e) => {
     let { ctx } = e;
-    gg.emit('color', { fill: 'tomato' });
     navbutton.draw(e);
 });

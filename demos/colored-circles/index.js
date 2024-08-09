@@ -1,5 +1,5 @@
-import gg from '../js/canvas/2d.js';
-import ft from '../js/draw/text.js';
+import gg from '../../js/canvas/2d.js';
+import ft from '../../js/draw/text.js';
 
 // set background color
 // We can emit this once or change it later
@@ -31,8 +31,8 @@ gg.on('tap', e => {
     let r = 0;
     let circle = { x, y, r };
     // store stroke color for each circle
-    let si = circles.length % 3;
-    let stroke = ['red', 'green', 'blue'][si];
+    let si = circles.length % 7;
+    let stroke = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'][si];
     circle.stroke = stroke;
     circles.push(circle);
     // change (text) fill color to match latest circle
