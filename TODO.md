@@ -5,6 +5,8 @@
 - [x] Animation loop
 - [x] filltext
 - [ ] SVG sprites
+- [ ] Cameras
+- [ ] States
 - [ ] Screens
 - [ ] Menus
 - [ ] Physics
@@ -13,6 +15,7 @@
 - [ ] Vector math
 - [ ] 3d math
 - [ ] Tweens
+- [ ] Timers
 - [ ] Tilemaps
 - [ ] Particles
 - [ ] Sound
