@@ -1,8 +1,8 @@
-import addCss from '../css.js';
+import css from '../css.js';
 import gg from '../canvas/2d.js';
 
 if (typeof document !== 'undefined') {
-    addCss(new URL('style.css', import.meta.url));
+    css(new URL('style.css', import.meta.url));
 }
 
 export default (options) => {

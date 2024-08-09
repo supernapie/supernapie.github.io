@@ -1,4 +1,4 @@
-let events = () => {
+export default () => {
 
     let listeners = {};
 
@@ -59,5 +59,3 @@ let events = () => {
 
     return {on, off, once, emit, last};
 };
-
-export default events;

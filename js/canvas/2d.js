@@ -1,4 +1,4 @@
-import addCss from '../css.js';
+import css from '../css.js';
 import events from '../events.js';
 
 let {on, off, once, emit, last} = events();
@@ -74,7 +74,7 @@ let draw = (ctx) => {
 };
 
 if (typeof document !== 'undefined') {
-    addCss(new URL('style.css', import.meta.url));
+    css(new URL('style.css', import.meta.url));
     addCanvas();
     window.addEventListener('resize', resize);
     resize();
