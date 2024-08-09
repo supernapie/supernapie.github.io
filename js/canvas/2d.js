@@ -12,41 +12,23 @@ let addCanvas = () => {
     document.body.appendChild(canvas);
 };
 
-let resize = () => {
-    let vw = window.innerWidth;
-    let vh = window.innerHeight;
-    let vc = window.devicePixelRatio;
+let resize = e => {
+    let { vw, vh, vc } = e;
     canvas.width = vw * vc;
     canvas.height = vh * vc;
     canvas.style.width = vw + 'px';
     canvas.style.height = vh + 'px';
-    emit('resize', {vw, vh, vc});
 };
 
-let tap = e => {
-    let { clientX: x, clientY: y } = e;
-    emit('tap', {x, y});
-    return { x, y };
+let color = e => {
+    let {fill, stroke} = e;
+    ctx.fillStyle = fill;
+    ctx.strokeStyle = stroke;
 };
 
-let color = () => {
-    on('color', e => {
-        let {fill, stroke} = e;
-        ctx.fillStyle = fill;
-        ctx.strokeStyle = stroke;
-    });
-    emit('color', { bg: 'black', fill: 'white', stroke: 'white' });
-};
+let clear = e => {
+    let {ctx} = e;
 
-let t = 0;
-let dt = 17;
-let step = (time) => {
-    dt = time - t;
-    t = time;
-    emit('step', {t, dt});
-};
-
-let draw = (ctx) => {
     ctx.restore();
     ctx.save();
 
@@ -70,24 +52,46 @@ let draw = (ctx) => {
     ctx.fillStyle = fill;
     ctx.strokeStyle = stroke;
 
-    emit('draw', {ctx});
 };
 
 if (typeof document !== 'undefined') {
     css(new URL('style.css', import.meta.url));
     addCanvas();
-    window.addEventListener('resize', resize);
-    resize();
-    color();
 
-    window.addEventListener('pointerup', tap);
+    on('resize', resize);
+    window.addEventListener('resize', () => {
+        let vw = window.innerWidth;
+        let vh = window.innerHeight;
+        let vc = window.devicePixelRatio;
+        emit('resize', {vw, vh, vc});
+    });
+    emit('resize', {
+        vw: window.innerWidth,
+        vh: window.innerHeight,
+        vc: window.devicePixelRatio || 1
+    });
 
+    window.addEventListener('pointerup', e => {
+        let { clientX: x, clientY: y } = e;
+        emit('tap', {x, y});
+    });
+
+    on('color', color);
+    emit('color', { bg: 'black', fill: 'white', stroke: 'white' });
+
+    on('clear', clear);
+
+    let t = 0;
+    let dt = 17;
     let onF = time => {
-        step(time);
-        draw(ctx);
+        dt = time - t;
+        t = time;
+        emit('step', {t, dt});
+        emit('clear', {ctx});
+        emit('draw', {ctx});
         requestAnimationFrame(onF);
     };
     requestAnimationFrame(onF);
 }
 
-export default {canvas, on, off, once, emit, last};
+export default { on, off, once, emit, last };

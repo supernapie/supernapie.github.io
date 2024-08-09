@@ -1,5 +1,13 @@
 import gg from '../../js/canvas/2d.js';
 
+// example for a static starfield texture
+
+// set the size off the canvas 1024x1024 but display it in 512x512
+gg.emit('resize', {vw: 512, vh: 512, vc: 2});
+// halt the resizing of the canvas
+gg.off('resize');
+
+// set the color of the canvas
 gg.emit('color', {
     bg: '#162832',
     stroke: '#e3e3e3',
@@ -7,7 +15,6 @@ gg.emit('color', {
 });
 
 let stars = [];
-
 while (stars.length < 500) {
     let { vw, vh } = gg.last('resize');
     let x = 3 + Math.floor(Math.random() * vw - 3);
@@ -17,7 +24,8 @@ while (stars.length < 500) {
     stars.push({ x, y, r, alpha });
 }
 
-gg.on('draw', e => {
+// we draw only once
+gg.once('draw', e => {
     let { ctx } = e;
     stars.forEach(star => {
         let { x, y, r, alpha } = star;
@@ -26,4 +34,7 @@ gg.on('draw', e => {
         ctx.arc(x, y, r, 0, Math.PI * 2);
         ctx.fill();
     });
+    // we are done
+    // halt the clearing of the canvas
+    gg.off('clear');
 });
