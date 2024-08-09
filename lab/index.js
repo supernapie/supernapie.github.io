@@ -34,6 +34,7 @@ gg.on('step', e => {
     });
 
     if (circles.length === 0) {
+        // repeat last tap event
         let { x = vw / 2, y = vh / 2 } = gg.last('tap');
         gg.emit('tap', { x, y });
     }
