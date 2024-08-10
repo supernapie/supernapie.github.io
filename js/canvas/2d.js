@@ -7,7 +7,6 @@ let {on, off, once, emit, last} = events();
 let canvas = document.createElement('canvas');
 let ctx = canvas.getContext('2d');
 document.body.appendChild(canvas);
-document.title = location.pathname;
 
 let resize = e => {
     let { vw, vh, vc } = e;
