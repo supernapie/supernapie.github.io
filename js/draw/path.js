@@ -6,6 +6,7 @@ export default (options = {}) => {
     let defaults = {
         url: false,
         paths: [],
+        fills: [],
         x: 0,
         y: 0,
         w: 512,
@@ -16,7 +17,7 @@ export default (options = {}) => {
     Object.assign(options, defaults);
     options.draw = e => {
         let { ctx } = e;
-        let { paths, x, y, w, h, a } = options;
+        let { paths, fills, x, y, w, h, a } = options;
         let rad = a * Math.PI / 180;
         let cx = w / ow;
         let cy = h / oh;
@@ -35,6 +36,9 @@ export default (options = {}) => {
             let np = new Path2D();
             np.addPath(new Path2D(path), n);
             p.addPath(np, m);
+            if (fills[i]) {
+                ctx.fillStyle = fills[i];
+            }
             ctx.fill(p);
         });
     };
