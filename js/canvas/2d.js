@@ -7,6 +7,7 @@ let {on, off, once, emit, last} = events();
 let canvas = document.createElement('canvas');
 let ctx = canvas.getContext('2d');
 document.body.appendChild(canvas);
+canvas.addEventListener('touchstart', e => e.preventDefault());
 
 let resize = e => {
     let { vw, vh, vc } = e;
