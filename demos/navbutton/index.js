@@ -7,9 +7,10 @@ gg.emit('color', { bg: 'navy', fill: 'white' });
 gg.on('draw', ft({text: 'WIP: /js/draw/path.js'}).draw);
 
 let navbutton = path({
+    //url: new URL('../../img/nav.svg', import.meta.url),
     url: new URL('../../img/gear.svg', import.meta.url),
     //paths: ['M 0 0 L 1024 0 L 1024 1024 L 0 1024 Z'],
-    fills: ['red', 'orange','yellow'],
+    //fills: ['red', 'orange','yellow'],
     w: 100,
     h: 100
 });
