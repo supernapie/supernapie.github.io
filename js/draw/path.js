@@ -30,13 +30,13 @@ export default (options = {}) => {
         ]);
         // normalize matrix, puts the origin in the center
         let n = new DOMMatrix([1, 0, 0, 1, -ow / 2, -oh / 2]);
-        let p = new Path2D();
         paths.forEach((path, i) => {
+            let p = new Path2D();
             let np = new Path2D();
             np.addPath(new Path2D(path), n);
             p.addPath(np, m);
+            ctx.fill(p);
         });
-        ctx.fill(p);
     };
     if (!options.url) {
         ow = options.w;
