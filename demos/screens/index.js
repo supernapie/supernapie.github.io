@@ -1,12 +1,20 @@
 import gg from '../../js/canvas/2d.js';
 import ft from '../../js/draw/text.js';
+import machine from '../../js/statemachine/machine.js';
 
 gg.emit('color', { bg: 'navy', fill: 'white' });
 
-let someText = ft({text: 'hello world\nthis is a test'});
+let states = machine(gg);
 
-gg.on('draw', e => {
-    someText.draw(e);
-    let { x, y, w, h } = someText;
-    e.ctx.strokeRect(x - 4, y - 4, w + 8, h + 8);
+let stateOne = states.add('first');
+let textOne = ft({text: 'This is the first state'});
+stateOne.on('draw', textOne.draw);
+
+let stateTwo = states.add('second');
+let textTwo = ft({text: 'This is the second state'});
+stateTwo.on('draw', textTwo.draw);
+
+gg.on('tap', () => {
+    let next = states.active === 'first' ? 'second' : 'first';
+    states.start(next);
 });

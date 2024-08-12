@@ -63,7 +63,7 @@ Event types and e objects
 - [x] Text
 - [x] SVG paths
 - [x] Pointer areas (rect)
-- [ ] States / Gameloop
+- [ ] Statemachine
 - [ ] Cameras
 - [ ] Timers
 - [ ] Lerps
