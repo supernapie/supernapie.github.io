@@ -27,7 +27,8 @@ export default (options = {}) => {
             Math.sin(rad) * cx,
             -Math.sin(rad) * cy,
             Math.cos(rad) * cy,
-            x, y
+            x + w / 2,
+            y + h / 2,
         ]);
         // normalize matrix, puts the origin in the center
         let n = new DOMMatrix([1, 0, 0, 1, -ow / 2, -oh / 2]);
