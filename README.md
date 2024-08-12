@@ -29,6 +29,32 @@ Event types and e objects
 - `color` `{ bg, fill, stroke }`
 - `resize` `{ vw, vh, vc }`
 
+### Text
+
+`js/draw/text.js`
+
+### Path
+
+`js/draw/path.js`
+
+### Pointer
+
+Properties
+
+- down
+- pointing
+
+`js/pointer/rect.js`
+
+Event types and e objects
+
+- `tap` `{ x, y }`
+- `move` `{ x, y }`
+- `down` `{ x, y }`
+- `up` `{ x, y }`
+- `startpointing` `{ x, y }`
+- `stoppointing` `{ x, y }`
+
 ## TODO
 
 - [x] Canvas resize
@@ -36,20 +62,19 @@ Event types and e objects
 - [x] Animation loop
 - [x] Text
 - [x] SVG paths
-- [ ] Tap areas
-- [ ] Hover areas
-- [ ] SVG sprites
+- [x] Pointer areas (rect)
+- [ ] States / Gameloop
 - [ ] Cameras
-- [ ] States
-- [ ] Screens
-- [ ] Menus
+- [ ] Timers
+- [ ] Lerps
+- [ ] Springs
+- [ ] Tweens
+- [ ] SVG sprites
 - [ ] Physics
-- [ ] Isometrics
 - [ ] Pathfinding
 - [ ] Vector math
 - [ ] 3d math
-- [ ] Tweens
-- [ ] Timers
+- [ ] Isometrics
 - [ ] Tilemaps
 - [ ] Particles
 - [ ] Sound
