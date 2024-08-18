@@ -15,6 +15,6 @@ let textTwo = ft({text: 'This is the second state. Tap!'});
 stateTwo.on('draw', textTwo.draw);
 
 gg.on('tap', () => {
-    let next = states.active === 'first' ? 'second' : 'first';
+    let next = stateOne.active ? 'second' : 'first';
     states.start(next);
 });

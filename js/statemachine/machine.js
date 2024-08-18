@@ -1,18 +1,29 @@
-import state from './state.js';
+import createState from './state.js';
+
 export default (gg) => {
     let machine = {
-        states: {},
-        active: ""
+        states: {}
     };
-    machine.add = (name) => {
-        if (!name) {
+    machine.add = (name, state) => {
+        if (!name){
             return;
         }
-        if (machine.states[name]) {
-            return machine.states[name];
+        if (!state) {
+            state = createState();
         }
-        machine.states[name] = state();
-        if (Object.keys(machine.states).length === 1) {
+        state.machine = machine;
+        gg.eTypes.forEach(eType => {
+            state[eType] = e => {
+                state.emit(eType, e);
+            };
+        });
+        gg.oTypes.forEach(oType => {
+            state.on(oType, gg[oType]);
+        });
+        machine.states[name] = state;
+        if (Object.keys(
+            machine.states
+        ).length === 1) {
             machine.start(name);
         }
         return machine.states[name];
@@ -26,29 +37,29 @@ export default (gg) => {
         }
         Object.values(machine.states).forEach((s) => {
             if (s.active) {
-                s.stop();
-                if (gg) {
-                    gg.off('step', s.step);
-                    gg.off('draw', s.draw);
-                }
+                s.active = false;
+                gg.eTypes.forEach(eType => {
+                    gg.off(eType, s[eType]);
+                });
             }
         });
-        machine.states[name].start();
-        machine.active = name;
-        if (gg) {
-            gg.on('step', machine.states[name].step);
-            gg.on('draw', machine.states[name].draw);
-        }
+        let n = machine.states[name];
+        gg.eTypes.forEach(eType => {
+            gg.on(eType, n[eType]);
+        });
+        n['resize'](gg.last('resize'));
+        n.active = true;
     };
     machine.restart = (name) => {
         if (!name || !machine.states[name]){
             return;
         }
-        if (!machine.states[name].active) {
+        let n = machine.states[name];
+        if (!n.active) {
             return;
         }
-        machine.states[name].stop();
-        machine.states[name].start();
+        n.active = false;
+        n.active = true;
     }
     return machine;
 };
