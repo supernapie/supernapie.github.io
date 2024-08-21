@@ -4,17 +4,18 @@ import machine from '../../js/statemachine/machine.js';
 
 gg.emit('color', { bg: 'Tan', fill: 'Azure' });
 
-let states = machine(gg);
-
-let stateOne = states.add('first');
+let stateOne = machine.add('first');
 let textOne = ft({text: 'This is the first state. Tap!'});
 stateOne.on('draw', textOne.draw);
 
-let stateTwo = states.add('second');
+let stateTwo = machine.add('second');
 let textTwo = ft({text: 'This is the second state. Tap!'});
 stateTwo.on('draw', textTwo.draw);
 
 gg.on('tap', () => {
-    let next = stateOne.active ? 'second' : 'first';
-    states.start(next);
+    if (stateOne.active) {
+        stateOne.stop('second');
+    } else if (stateTwo.active) {
+        stateTwo.stop('first');
+    }
 });

@@ -1,6 +1,6 @@
 import svg from '../svg.js';
 
-export default (options = {}) => {
+export default (obj = {}) => {
     let ow = 0; // original width
     let oh = 0; // original height
     let defaults = {
@@ -13,11 +13,11 @@ export default (options = {}) => {
         h: 512,
         a: 0, // 0-360
     };
-    Object.assign(defaults, options);
-    Object.assign(options, defaults);
-    options.draw = e => {
+    Object.assign(defaults, obj);
+    Object.assign(obj, defaults);
+    obj.draw = e => {
         let { ctx } = e;
-        let { paths, fills, x, y, w, h, a } = options;
+        let { paths, fills, x, y, w, h, a } = obj;
         let rad = a * Math.PI / 180;
         let cx = w / ow;
         let cy = h / oh;
@@ -43,19 +43,19 @@ export default (options = {}) => {
             ctx.fill(p);
         });
     };
-    if (!options.url) {
-        ow = options.w;
-        oh = options.h;
-        return options;
+    if (!obj.url) {
+        ow = obj.w;
+        oh = obj.h;
+        return obj;
     }
-    svg(options.url).then((svgtext) => {
+    svg(obj.url).then((svgtext) => {
         let el = document.createElement('div');
         el.innerHTML = svgtext;
         el.querySelectorAll('path').forEach((path) => {
-            options.paths.push(path.getAttribute('d'));
+            obj.paths.push(path.getAttribute('d'));
         });
-        ow = Number(el.querySelector('svg').getAttribute('width').replace('px', '')) || 512;
-        oh = Number(el.querySelector('svg').getAttribute('height').replace('px', '')) || 512;
+        ow = Number(el.querySelector('svg').getAttribute('width').replace('px', '')) || obj.w;
+        oh = Number(el.querySelector('svg').getAttribute('height').replace('px', '')) || obj.h;
     });
-    return options;
+    return obj;
 };

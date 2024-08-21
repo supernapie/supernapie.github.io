@@ -2,44 +2,38 @@ import css from '../css.js';
 css(new URL('../../css/canvas.css', import.meta.url));
 
 import events from '../events.js';
-let {on, off, once, emit, last} = events();
+
+let obj = events({}, ['color']);
+let {on, emit, last} = obj;
 
 let canvas = document.createElement('canvas');
 let ctx = canvas.getContext('2d');
 document.body.appendChild(canvas);
 canvas.addEventListener('touchstart', e => e.preventDefault());
 
-let resize = e => {
+on('resize', e => {
     let { vw, vh, vc } = e;
     canvas.width = vw * vc;
     canvas.height = vh * vc;
     canvas.style.width = vw + 'px';
     canvas.style.height = vh + 'px';
-};
-on('resize', resize);
-window.addEventListener('resize', () => {
-    let vw = window.innerWidth;
-    let vh = window.innerHeight;
-    let vc = window.devicePixelRatio;
-    emit('resize', {vw, vh, vc});
 });
-emit('resize', {
+let windowResized = () => emit('resize', {
     vw: window.innerWidth,
     vh: window.innerHeight,
     vc: window.devicePixelRatio || 1
 });
+window.addEventListener('resize', windowResized);
+windowResized();
 
-let color = e => {
+on('color', e => {
     let {fill, stroke} = e;
     ctx.fillStyle = fill;
     ctx.strokeStyle = stroke;
-};
-on('color', color);
+});
 emit('color', { bg: 'black', fill: 'white', stroke: 'white' });
 
-let clear = e => {
-    let {ctx} = e;
-
+on('clear', () => {
     ctx.restore();
     ctx.save();
 
@@ -62,8 +56,7 @@ let clear = e => {
 
     ctx.fillStyle = fill;
     ctx.strokeStyle = stroke;
-};
-on('clear', clear);
+});
 
 window.addEventListener('pointerup', e => {
     let { clientX: x, clientY: y } = e;
@@ -76,13 +69,10 @@ let onF = time => {
     dt = time - t;
     t = time;
     emit('step', {t, dt});
-    emit('clear', {ctx});
+    emit('clear');
     emit('draw', {ctx});
     requestAnimationFrame(onF);
 };
 requestAnimationFrame(onF);
 
-let eTypes = ['tap', 'resize', 'step', 'draw'];
-let oTypes = ['color'];
-
-export default { on, off, once, emit, last, eTypes, oTypes, color };
+export default obj;
