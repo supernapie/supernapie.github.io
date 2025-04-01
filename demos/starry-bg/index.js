@@ -2,8 +2,8 @@ import gg from '../../js/canvas/2d.js';
 
 // example for a static starfield texture
 
-// set the size off the canvas 2048x2048 but display it in 512x512
-gg.emit('resize', {vw: 512, vh: 512, vc: 4});
+// set the size off the canvas 2048x2048 but display it in 1024x1024
+gg.emit('resize', {vw: 1024, vh: 1024, vc: 2});
 // halt the resizing of the canvas
 gg.off('resize');
 
